@@ -35,14 +35,19 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps:
-      - name: Use Build Outputs
+      - name: Download Artifact
         uses: actions/download-artifact@v2
         with:
           name: my-repo-artifact
 
-      - name: Deploy Backend
+      - name: Unzip Artifact
         run: |
           cd /home/runner/work/TCRC-Backend/TCRC-Backend
+          unzip -o my-repo-artifact.zip -d .
+        shell: bash
+
+      - name: Deploy Backend
+        run: |
           ls
           # terraform apply -auto-approve
         shell: bash
