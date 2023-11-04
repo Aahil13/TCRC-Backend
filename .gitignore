@@ -1,0 +1,17 @@
+# Node
+node_modules
+*.json
+
+# cypress 
+cypress.config.js
+/cypress/fixtures
+/cypress/downloads
+
+# Terraform
+Terraform/.terraform
+Terraform/.terraform.lock.hcl
+Terraform/.terraform.tfstate.lock.info
+/Terraform/terraform.tfstate
+/Terraform/terraform.tfstate.backup
+
+lambda_function.zip
