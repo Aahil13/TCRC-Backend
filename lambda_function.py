@@ -38,7 +38,9 @@ def lambda_handler(event, context):
                 }
             }
         except Exception as e:
+            error_message = f"An error occurred: {str(e)}"
+            print(error_message)  # Log the error message
             return {
                 'statusCode': 500,
-                'body': json.dumps({'error': str(e)})
+                'body': json.dumps({'error': error_message})
             }
