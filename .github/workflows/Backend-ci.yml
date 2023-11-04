@@ -48,8 +48,8 @@ jobs:
 
       - name: Deploy Backend
         run: |
-          ls
-          # terraform apply -auto-approve
+          cd Terraform
+          terraform apply -auto-approve
         shell: bash
 
   destroy:
@@ -57,15 +57,19 @@ jobs:
     needs: deploy
 
     steps:
+      - name: Download Artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: my-repo-artifact
+
+      - name: Unzip Artifact
+        run: |
+          cd /home/runner/work/TCRC-Backend/TCRC-Backend
+          unzip -o my-repo-artifact.zip -d .
+        shell: bash
+
       - name: Manual Destruction Confirmation
         run: |
-          echo "Are you sure you want to destroy your infrastructure?"
-          read -p "Type 'yes' to confirm: " confirmation
-          if [ "$confirmation" == "yes" ]; then
-            echo "Confirmed. Initiating destruction."
-            cd Terraform
-            terraform destroy -auto-approve
-          else
-            echo "Not confirmed. Skipping destruction."
-          fi
+          cd Terraform
+          terraform destroy -auto-approve
         shell: bash
