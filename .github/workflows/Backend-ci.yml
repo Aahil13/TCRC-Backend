@@ -42,7 +42,9 @@ jobs:
 
       - name: Deploy Backend
         run: |
-          terraform apply -auto-approve
+          cd /home/runner/work/TCRC-Backend/TCRC-Backend
+          ls
+          # terraform apply -auto-approve
         shell: bash
 
   destroy:
