@@ -8,7 +8,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout Code and Define Variables
         uses: actions/checkout@v2
@@ -23,7 +22,6 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
-
     steps:
       - name: Use Build Outputs
         uses: actions/setup-python@v2
@@ -35,7 +33,6 @@ jobs:
 
       - name: Deploy Backend
         run: |
-          cd Terraform
           terraform apply -auto-approve
         shell: bash
 
