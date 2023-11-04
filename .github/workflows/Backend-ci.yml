@@ -20,17 +20,25 @@ jobs:
           terraform init
         shell: bash
 
+      - name: Archive Repository
+        run: |
+          zip -r my-repo-artifact.zip .
+        working-directory: ./
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: my-repo-artifact
+          path: my-repo-artifact.zip
+
   deploy:
     runs-on: ubuntu-latest
     needs: build
     steps:
       - name: Use Build Outputs
-        uses: actions/setup-python@v2
+        uses: actions/download-artifact@v2
         with:
-          python-version: 3.x
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          name: my-repo-artifact
 
       - name: Deploy Backend
         run: |
@@ -39,6 +47,7 @@ jobs:
 
   destroy:
     runs-on: ubuntu-latest
+    needs: deploy
 
     steps:
       - name: Manual Destruction Confirmation
