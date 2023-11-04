@@ -1,8 +1,12 @@
 import unittest
 from lambda_function import lambda_handler
 
+aws_region = 'us-east-1' 
+
 class TestLambdaHandler(unittest.TestCase):
     def test_lambda_handler(self):
+        boto3.setup_default_session(region_name=aws_region)
+
         event = {
             'httpMethod': 'GET'
         }
