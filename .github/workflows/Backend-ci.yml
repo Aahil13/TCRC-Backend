@@ -13,13 +13,10 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v2
 
-  deploy:
-    runs-on: ubuntu-latest
-
-    steps:
       - name: Deploy Backend
         if: success()
         run: |
+          cd Terraform
           ls
         #   terraform init
         #   terraform apply -auto-approve
