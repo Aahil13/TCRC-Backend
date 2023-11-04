@@ -1,9 +1,7 @@
 import json
 import boto3
 
-aws_region = 'us-east-1'
-
-dynamodb = boto3.client('dynamodb', region_name=aws_region)
+dynamodb = boto3.client('dynamodb')
 table_name = 'visitor_count'
 
 def lambda_handler(event, context):
@@ -38,9 +36,7 @@ def lambda_handler(event, context):
                 }
             }
         except Exception as e:
-            error_message = f"An error occurred: {str(e)}"
-            print(error_message)  # Log the error message
             return {
                 'statusCode': 500,
-                'body': json.dumps({'error': error_message})
+                'body': json.dumps({'error': str(e)})
             }
