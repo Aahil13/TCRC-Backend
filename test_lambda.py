@@ -1,5 +1,6 @@
 import unittest
 from lambda_function import lambda_handler
+import boto3
 
 aws_region = 'us-east-1' 
 
