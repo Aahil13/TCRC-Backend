@@ -47,7 +47,8 @@ resource "aws_s3_bucket_policy" "resume_bucket_policy" {
   "Statement": [
     {
       "Action": [
-        "s3:GetObject"
+        "s3:GetObject",
+        "s3:PutBucketPolicy"
       ],
       "Effect": "Allow",
       "Resource": "arn:aws:s3:::${aws_s3_bucket.resume_bucket.bucket}/*",
