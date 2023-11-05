@@ -1,9 +1,18 @@
+output "s3_bucket_url" {
+  value = "http://${aws_s3_bucket.resume_bucket.bucket}.s3-website.us-east-1.amazonaws.com"
+}
+
+output "cloudfront_url" {
+  value = "https://${aws_cloudfront_distribution.s3_distribution.domain_name}"
+}
+
+
 resource "aws_apigatewayv2_api" "lambda" {
   name          = "resume_counter_api"
   protocol_type = "HTTP"
 
   cors_configuration {
-    allow_origins = ["http://127.0.0.1:5500"]
+    allow_origins = ["http://127.0.0.1:5500", "${s3_bucket_url}", "${cloudfront_url}"]
     allow_methods = ["GET"]
     allow_headers = ["Content-Type"]
     max_age       = 300
