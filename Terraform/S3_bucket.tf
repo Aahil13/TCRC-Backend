@@ -25,6 +25,7 @@ resource "aws_s3_bucket_ownership_controls" "resume_bucket_ownership_controls" {
   rule {
     object_ownership = "BucketOwnerPreferred"
   }
+  depends_on = [aws_s3_bucket_public_access_block.resume_bucket_public_access_block]
 }
 
 ## Bucket ACL for Resume
