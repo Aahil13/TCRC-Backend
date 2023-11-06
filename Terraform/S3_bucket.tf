@@ -6,6 +6,7 @@ resource "aws_s3_bucket" "resume_bucket" {
     Name        = "resume_bucket"
     Environment = "Dev"
   }
+  object_lock_enabled = true
 }
 
 ## Bucket Public Access for Resume
@@ -68,6 +69,18 @@ resource "aws_s3_bucket_website_configuration" "resume_static_website" {
 
   index_document {
     suffix = "index.html"
+  }
+}
+
+
+resource "aws_s3_bucket_object_lock_configuration" "resume_bucket_object_lock_configuration" {
+  bucket = aws_s3_bucket.resume_bucket.bucket
+
+  rule {
+    default_retention {
+      mode = "COMPLIANCE"
+      days = 5
+    }
   }
 }
 
