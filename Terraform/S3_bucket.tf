@@ -62,6 +62,8 @@ resource "aws_s3_bucket_policy" "resume_bucket_policy" {
   ]
 }
 POLICY
+
+  depends_on = [aws_s3_bucket_public_access_block.resume_bucket_public_access_block]
 }
 
 ## Bucket Static Site Configuration for Resume
@@ -79,7 +81,7 @@ resource "aws_s3_bucket_object_lock_configuration" "resume_bucket_object_lock_co
 
   rule {
     default_retention {
-      mode = "COMPLIANCE"
+      mode = "GOVERNANCE"
       days = 5
     }
   }
